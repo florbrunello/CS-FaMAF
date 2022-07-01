@@ -1,0 +1,10 @@
+Organización del Computador - 2022
+
+Integrantes: 
+	Brunello, Florencia -44580164
+	Caldara, María Emilia -43608706
+	Ferrero, Andrés -44297635
+
+Descripción de lo que el código genera en la pantalla:
+
+La imagen representa la tradición, con la escarapela como símbolo patrio, y el mate como costumbre que nos une. La animación consta de la cebada del mismo. En el cuadro se puede observar un hogar con vista al exterior, una escarapela colgada y el mate por cebar.
