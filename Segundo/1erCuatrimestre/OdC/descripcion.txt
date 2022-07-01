@@ -7,4 +7,6 @@ Integrantes:
 
 Descripción de lo que el código genera en la pantalla:
 
-La imagen representa la tradición, con la escarapela como símbolo patrio, y el mate como costumbre que nos une. La animación consta de la cebada del mismo. En el cuadro se puede observar un hogar con vista al exterior, una escarapela colgada y el mate por cebar.
+La imagen representa la tradición, con la escarapela como símbolo patrio, y el mate como costumbre que nos une. 
+La animación consta de la cebada del mismo. En el cuadro se puede observar un hogar con vista al exterior, una escarapela 
+colgada y el mate por cebar.
