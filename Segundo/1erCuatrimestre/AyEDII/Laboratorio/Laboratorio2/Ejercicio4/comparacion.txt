@@ -1,0 +1,79 @@
+Comparison of different sorting algorithms according to different criteria
+
+--> Time elapsed is measured in ms
+
+/--> empty.in (empty array)
+statistics for selection_sort
+time elapsed=0.016,    comparisons:          0,    swaps:          0
+statistics for insertion_sort
+time elapsed=0.005,    comparisons:          0,    swaps:          0
+statistics for quick_sort
+time elapsed=0.004,    comparisons:          0,    swaps:          0
+
+/--> example-unsorted.in (small unsorted array)
+statistics for selection_sort
+time elapsed=0.022,    comparisons:         10,    swaps:          5
+statistics for insertion_sort
+time elapsed=0.007,    comparisons:          7,    swaps:          5
+statistics for quick_sort
+time elapsed=0.007,    comparisons:         13,    swaps:          4
+
+/--> example-sorted.in (small sorted array)
+statistics for selection_sort
+time elapsed=0.018,    comparisons:         10,    swaps:          5
+statistics for insertion_sort
+time elapsed=0.005,    comparisons:          4,    swaps:          0
+statistics for quick_sort
+time elapsed=0.004,    comparisons:         20,    swaps:          4
+
+/--> sorted-asc-100.in (100 element long ascending sorted array)
+statistics for selection_sort
+time elapsed=0.079,    comparisons:       4950,    swaps:        100
+statistics for insertion_sort
+time elapsed=0.007,    comparisons:         99,    swaps:          0
+statistics for quick_sort
+time elapsed=0.127,    comparisons:       9900,    swaps:         99
+
+/--> sorted-desc-100.in (100 element long descending sorted array)
+statistics for selection_sort
+time elapsed=0.092,    comparisons:       4950,    swaps:        100
+statistics for insertion_sort
+time elapsed=0.122,    comparisons:       4950,    swaps:       4950
+statistics for quick_sort
+time elapsed=0.131,    comparisons:       7400,    swaps:         99
+
+/--> unsorted-100.in (100 element long unsorted array)
+statistics for selection_sort
+time elapsed=0.093,    comparisons:       4950,    swaps:        100
+statistics for insertion_sort
+time elapsed=0.066,    comparisons:       2555,    swaps:       2462
+statistics for quick_sort
+time elapsed=0.04,    comparisons:       1419,    swaps:        164
+
+/--> unsorted-10000.in (10000 element long unsorted array)
+statistics for selection_sort
+time elapsed=162.429,    comparisons:   49995000,    swaps:      10000
+statistics for insertion_sort
+time elapsed=167.898,    comparisons:   24839452,    swaps:   24829459
+statistics for quick_sort
+time elapsed=1.902,    comparisons:     323371,    swaps:      31525
+
+/--> unsorted-100000.in (100000 element long unsorted array)
+statistics for selection_sort
+time elapsed=16676.2,    comparisons:  704982704,    swaps:     100000
+statistics for insertion_sort
+time elapsed=25646.9,    comparisons: 2498635594,    swaps: 2498535610
+statistics for quick_sort
+time elapsed=36.596,    comparisons:    4380687,    swaps:     360595
+
+Algunas conclusiones:
+--> quick_sort resulta más lento que las demás alternativas cuando el arreglo está ordenado,
+    ya sea de forma ascendente o descendente. Probablemente se deba a que las posiciones de los
+    pivots en estos casos no sea conveniente para la forma en la que opera el arreglo
+--> quick_sort resulta extremadamente más rápido a la hora de ordenar arreglos "aleatorios" muy
+    grandes. Para el mayor arreglo testeado, vemos que:
+    -> selection_sort: 16.676 segundos
+    -> insertion_sort: 25.647 segundos
+    -> quick_sort: 0.036 segundos
+    lo que nos da una diferencia del 47645% en el primer caso y 71241% en el segundo.
+    (quick_sort es 476 veces más rápido que selection_sort y 712 veces más rápido que insertion_sort)
