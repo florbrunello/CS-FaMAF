@@ -17,7 +17,7 @@ def soltrinf(A,b):
 
     #Obtengo n (cantidad de filas de A)
     n = A.shape[0]
-    #Creo un arreglo de n ceros [0,...0] 
+    #Creo un arreglo de n ceros [0,...,0] 
     x = np.zeros(n)
 
     #Calculo los elementos de la solución x 
