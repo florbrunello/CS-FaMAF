@@ -37,6 +37,7 @@ def egauss(A_, b_):
 
             b[i] = b[i] - m * b[k]
 
+    #No es necesario anular los elementos debajo de la diagonal, utilizo la parte triangular superior.  
     U = np.triu(A)
 
     return U, b
