@@ -10,3 +10,5 @@ kernel8.list
 .vscode/*
 
 .gdb_history
+
+memory_map.txt
