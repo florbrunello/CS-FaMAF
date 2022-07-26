@@ -9,6 +9,6 @@ kernel8.list
 # VS Code environment directory
 .vscode/*
 
+#General
 .gdb_history
-
 memory_map.txt
