@@ -1,10 +1,10 @@
-# C object files
-*.o
-
 # Assembler compiled files
 kernel8.elf
 kernel8.img
 kernel8.list
+
+# C object files
+*.o
 
 # VS Code environment directory
 .vscode/*
@@ -12,3 +12,4 @@ kernel8.list
 #General
 .gdb_history
 memory_map.txt
+test.txt
