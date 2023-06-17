@@ -10,6 +10,6 @@ kernel8.list
 .vscode/*
 
 #General
-.gdb_history
 memory_map.txt
+.gdb_history
 test.txt
