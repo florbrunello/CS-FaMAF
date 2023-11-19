@@ -35,14 +35,14 @@ module controller (input logic reset,
 
 	always_comb
 		begin
-			if (reset) 									// reset == 1, todas las salidas de controller valen 0 
+			if (reset) // reset == 1, todas las salidas de controller valen 0 
 				begin 
 					EStatus <= 4'b0000;
 					Exc <= 1'b0000;			
 					ExtIAck <= 1'b0000;	
 				end
 			
-			else 									     // reset == 0
+			else // reset == 0
 				begin 
 					begin 
 						if (ExtIRQ) 
