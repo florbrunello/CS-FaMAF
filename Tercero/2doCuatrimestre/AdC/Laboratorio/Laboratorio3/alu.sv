@@ -20,4 +20,3 @@ module alu #(parameter N=64)
 	end
 
 endmodule
-
