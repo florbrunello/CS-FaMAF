@@ -17,7 +17,7 @@ module datapath #(parameter N = 64)
 				  output logic [N-1:0] IM_addr, DM_addr, DM_writeData,
 				  output logic DM_writeEnable, DM_readEnable,
 				  output logic ExcAck, 
-				  input logic InconBranch); // Ej 2
+				  input logic InconBranch);
 
 	logic PCSrc;
 	logic [N-1:0] E_Branch, PCBranch, writeData3;
@@ -60,12 +60,12 @@ module datapath #(parameter N = 64)
 								.aluResult_E(DM_addr),
 								.writeData_E(DM_writeData),
 								.zero_E(zero), 
-								.InconBranch(InconBranch)); // Ej2
+								.InconBranch(InconBranch));
 
 	memory  		MEMORY     (.Branch_M(Branch),
 								.zero_M(zero),
 								.PCSrc_M(PCSrc), 
-								.InconBranch(InconBranch)); // Ej2
+								.InconBranch(InconBranch));
 
 
 
