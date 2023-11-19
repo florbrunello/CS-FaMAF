@@ -1,4 +1,4 @@
-// DATAPATH
+// Datapath
 
 module datapath #(parameter N = 64)
 					(input logic reset, clk,
