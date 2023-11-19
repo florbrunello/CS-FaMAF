@@ -10,14 +10,14 @@ module regfile (input logic clk, we3,
 									  64'd16, 64'd17, 64'd18, 64'd19, 64'd20, 64'd21, 64'd22, 64'd23,
 									  64'd24, 64'd25, 64'd26, 64'd27, 64'd28, 64'd29, 64'd30, 64'd0};
 	
-	//Leer X - Asincrono
+	// Leer X - Asincrono
 	always_comb
 		begin
 			rd1 <= X[ra1];
 			rd2 <= X[ra2];
 		end	
 		
-	//Escritura X - Sincrono
+	// Escritura X - Sincrono
 	always_ff @(posedge clk)
 		begin
 			if (we3 == 1'b1 & wa3 !== 5'b11111)
