@@ -1,4 +1,6 @@
-module signext_tb3();
+// Signext TestBench 
+
+module signext_tb();
 	logic [31:0] a; 
 	logic [63:0] y;
 	
@@ -43,4 +45,3 @@ module signext_tb3();
 			$stop;
 		end 			
 endmodule
-			
