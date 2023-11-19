@@ -1,4 +1,4 @@
-// Etapa: DECODE
+// Decode
 
 module decode #(parameter N = 64)
 					(input logic regWrite_D, reg2loc_D, clk,
