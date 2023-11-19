@@ -16,8 +16,7 @@ module processor_tb();
     begin
       #5 CLOCK_50 = ~CLOCK_50; 
     end
-	 
-	 
+ 
   initial
     begin
       CLOCK_50 = 0; reset = 1; dump = 0;
