@@ -17,4 +17,5 @@ module alu #(parameter N = 64) (
 
 		zero = result == '0 ? '1 : '0;
 	end
+	
 endmodule
