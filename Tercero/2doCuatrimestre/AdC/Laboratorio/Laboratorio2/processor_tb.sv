@@ -1,4 +1,4 @@
-// Testbench ProcessorPatterson
+// Processor Testbench 
 // Top-level Entity: processor_arm
 
 module processor_tb();
@@ -8,11 +8,11 @@ module processor_tb();
 	logic [N-1:0] 	DM_writeData, DM_addr;
 	logic 			dump;
   
-  // instantiate device under test
+  // Instantiate device under test
   processor_arm  dut (CLOCK_50, reset, DM_writeData, DM_addr, DM_writeEnable, dump);
     
-  // generate clock
-  always     // no sensitivity list, so it always executes
+  // Generate clock
+  always     // No sensitivity list, so it always executes
     begin
       #5 CLOCK_50 = ~CLOCK_50; 
     end
@@ -25,5 +25,5 @@ module processor_tb();
       #550 dump = 1; 
 	   #20 $stop;
 	end 
-endmodule
 
+endmodule
