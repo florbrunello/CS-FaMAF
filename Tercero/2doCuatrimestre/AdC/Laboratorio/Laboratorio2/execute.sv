@@ -1,3 +1,5 @@
+// Execute
+
 module execute #(parameter N = 64) (
 		input logic AluSrc,
 		input logic [3:0] AluControl,
@@ -14,7 +16,7 @@ module execute #(parameter N = 64) (
 	sl2 #(N) sl2(signImm_E, sl2_out);
 	adder #(N) adder(PC_E, sl2_out, MUX_out2);
 	alu #(N) alu(readData1_E, MUX_out, AluControl, aluResult_E, zero_E);
-	mux2 #(N) MUX2(MUX_out2, readData1_E, InconBranch, PCBranch_E); //(para branch)
+	mux2 #(N) MUX2(MUX_out2, readData1_E, InconBranch, PCBranch_E);
 
 	assign writeData_E = readData2_E;
 
