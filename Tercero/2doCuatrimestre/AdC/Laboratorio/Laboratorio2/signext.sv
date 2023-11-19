@@ -10,4 +10,5 @@ module signext (input logic [31:0] a,
 			11'b101_1010_0???: y = {{45{a[23]}},a[23:5]};   //CBZ
 			default: y = {64'b0}; 
 		endcase
+
 endmodule
