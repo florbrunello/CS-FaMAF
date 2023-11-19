@@ -1,4 +1,4 @@
-// 2:1 MULTIPLEXER
+// 2:1 Multiplexer
 
 module mux2 #(parameter N = 64)
 				(input logic [N-1:0] d0, d1,
