@@ -1,9 +1,9 @@
-// CONTROLLER
+// Controller
 
 module controller(input logic [10:0] instr,
-						output logic [3:0] AluControl,						
-						output logic reg2loc, regWrite, AluSrc, Branch,
-											memtoReg, memRead, memWrite);
+			output logic [3:0] AluControl,						
+			output logic reg2loc, regWrite, AluSrc, Branch,
+								memtoReg, memRead, memWrite);
 											
 	logic [1:0] AluOp_s;
 											
