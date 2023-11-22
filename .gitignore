@@ -6,10 +6,10 @@ kernel8.list
 # C object files
 *.o
 
-# VS Code environment directory
-.vscode/*
-
 #General
 memory_map.txt
 .gdb_history
 test.txt
+
+# VS Code environment directory
+	.vscode/*
