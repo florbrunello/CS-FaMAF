@@ -10,18 +10,22 @@ type Iden = String
 
 type Σ = Iden -> Int
 
+-- Alias por si escribir Σ les resulta complicado
+type State = Σ
+
 -- Función de actualización de estado
-update :: Iden -> Int -> Σ -> Σ
-update v n σ v'
-  | v == v' = n
-  | otherwise = σ v'
+update :: Σ -> Iden -> Int -> Σ
+update σ v n v' =
+  if v == v'
+    then n
+    else σ v'
 
 {- Para probar con eval: usen al principio eIniTest que no rompe nada si quieren
     saber cuánto termina valiendo una variable  -}
 
 eInicial, eIniTest :: Σ
-eInicial _ = undefined
-eIniTest _ = 0
+eInicial = \v -> undefined
+eIniTest = \v -> 0
 
 {- Ω ≈ Σ + Σ -}
 data Ω
@@ -32,6 +36,9 @@ data Ω
    * Normal : Σ → Ω
    * Abort  : Σ → Ω
    -}
+
+-- Alias por si escribir Ω les resulta complicado
+type Omega = Ω
 
 data Expr a where
   {- Expresiones enteras -}
@@ -94,19 +101,12 @@ instance DomSem Int where
   sem (Const a) _    = a
   sem (Var v) σ      = σ v
   sem (Plus e1 e2) σ = sem e1 σ + sem e2 σ
-  sem (Dif e1 e2) σ  = sem e1 σ - sem e2 σ
-  sem (Times e1 e2) σ = sem e1 σ * sem e2 σ
-  sem (Div e1 e2) σ = if sem e2 σ == 0 then 0 else sem e1 σ `div` sem e2 σ
+  sem e _            = undefined
 
 instance DomSem Bool where
   sem (Eq e1 e2) σ = sem e1 σ == sem e2 σ
-  sem (Neq e1 e2) σ = sem e1 σ /= sem e2 σ
-  sem (Less e1 e2) σ = sem e1 σ < sem e2 σ
-  sem (And e1 e2) σ = sem e1 σ && sem e2 σ
-  sem (Or e1 e2) σ = sem e1 σ || sem e2 σ
-  sem (Not e) σ = not (sem e σ)
-
-
+  sem e _          = undefined
+  
 {- Función de control para Ω -}
 
 (*.) :: (Σ -> Ω) -> Ω -> Ω
@@ -117,29 +117,11 @@ instance DomSem Bool where
 (+.) _ (Normal σ) = Normal σ
 (+.) f (Abort σ)  = f σ
 
-(†) :: (Σ -> Σ) -> Ω -> Ω
-(†) f (Normal σ) = Normal (f σ)
-(†) f (Abort σ)  = Abort (f σ)
-
 instance DomSem Ω where
   sem Skip σ = Normal σ
-  sem (Local v e c) σ = update v (σ v) † sem c (update v (sem e σ) σ)
-  sem (Assign v e) σ = Normal (update v (sem e σ) σ)
-  sem Fail σ = Abort σ
-  sem (Catch c c') σ = sem c' +. sem c σ
-  sem (While b c) σ = fix f σ
-    where
-      f :: (Σ -> Ω) -> Σ -> Ω
-      f g σ'
-        | sem b σ' = g *. sem c σ'
-        | otherwise = Normal σ'
-  sem (If b c c') σ
-    | sem b σ = sem c σ
-    | otherwise = sem c' σ
-  sem (Seq c c') σ = sem c' *. sem c σ
+  sem e _    = undefined
 
-
--- ################# Funciones de evaluación de dom ################# -}
+{- ################# Funciones de evaluación de dom ################# -}
 class Eval dom where
   eval :: [Iden] -> Expr dom -> Σ -> IO ()
 
@@ -150,11 +132,11 @@ instance Eval Bool where
   eval _ e = print . sem e
 
 instance Eval Ω where
-  eval lvars e σ = mapM_ (f (elsigma (sem e σ))) lvars
+  eval lvars e = \sigma -> mapM_ (f (elsigma (sem e sigma))) lvars
     where
-      elsigma (Normal σ') = σ'
-      elsigma (Abort σ') = σ'
-      f s var = putStrLn (var ++ " vale " ++ show (s var))
+      elsigma (Normal σ) = σ
+      elsigma (Abort σ)  = σ
+      f s var = putStrLn (var ++ " vale " ++ (show (s var)))
 
 {- Usen esto con eInicial o eIniTest pasando una lista de variables -}
 prog1 = Assign "x" (Const 8)
@@ -181,7 +163,7 @@ prog3 =
     (Local "x" (Const 7) Fail)
     Skip
 
-ejemplo3 = eval ["x"] prog3 eIniTest
+ejemplo3 = eval "[x]" prog3 eIniTest
 
 {- División y Resto -}
 
@@ -216,5 +198,4 @@ progDivMod =
 -}
 
 ejemploDivMod a b = eval ["x", "y"] progDivMod $
-  update "y" b (update "x" a eInicial)
-
+  update (update eInicial "x" a) "y" b
