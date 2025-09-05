@@ -1,0 +1,5 @@
+// Ejercicio 5
+
+BISTABLE = ( trigger -> [1] -> trigger -> [0] -> BISTABLE).
+
+// Los números deben ir entre corchetes

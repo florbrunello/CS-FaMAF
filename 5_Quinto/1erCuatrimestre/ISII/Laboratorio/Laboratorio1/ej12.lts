@@ -1,0 +1,36 @@
+// Ejercicio 12
+
+//const N = 2
+
+//CINTA = (a -> CINTA[1]),
+//CINTA[i:0..N] = ( when (i>0) prensar -> CINTA[i-1]
+//				| when (i<N) a -> CINTA[i+1]).
+
+//CINTAB = (b -> CINTAB[1]),
+//CINTAB[i:0..N] = ( when (i>0) taladrar -> CINTAB[i-1]
+//   				 | when (i<N) b -> CINTAB[i+1]).
+
+//||CINTAS = (CINTA || CINTAB).
+
+// Ojo out_a y out_b
+
+// OJO parentesis que cierra ( cinta:CINTA || BRAZO || PRENSA || TALADRO || BRAZO_SALIDA )
+
+const N = 2
+
+CINTA = CINTA[0],
+CINTA[i:0..N] = ( when (i>0) get -> CINTA[i-1]
+				| when (i<N) put -> CINTA[i+1]).
+
+BRAZO= ( get.a -> prensar -> BRAZO
+	   | get.b -> taladrar -> BRAZO). 
+
+PRENSA = ( prensar -> out_a -> PRENSA ).
+
+TALADRO = ( taladrar -> out_b -> TALADRO ). 
+
+BRAZO_SALIDA = ( out_a -> BRAZO_SALIDA
+			   | out_b -> BRAZO_SALIDA ). 
+
+||CELULA = ( cinta:CINTA || BRAZO || PRENSA || TALADRO || BRAZO_SALIDA )
+		   / { get.{a,b}/ cinta.get}.

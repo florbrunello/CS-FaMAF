@@ -1,0 +1,10 @@
+// Ejercicio 6
+SENSOR (N=9) = SENSOR[5],
+SENSOR[i:0..N] = (medir -> ( when (i<2) bajo -> SENSOR[i]
+		   				   | when (i>8) alto -> SENSOR[i]
+		     			   | normal -> SENSOR[i])). 
+
+// NO olvidar que el sensor debe "medir" -> considere un sensor que mide el nivel de agua
+// Se especifica que el nivel inicialmente es 5
+// Las señales bajo, alto, normal deben aparecer
+

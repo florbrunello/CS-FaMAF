@@ -1,0 +1,4 @@
+// Ejercicio 4
+
+VARIABLE (N=2) = ( read[i:0..N] -> VARIABLE
+				 | write[i:0..N] -> VARIABLE).

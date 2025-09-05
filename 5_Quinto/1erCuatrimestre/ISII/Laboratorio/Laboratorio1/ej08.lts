@@ -1,0 +1,45 @@
+// Ejercicio 8
+
+// Frecuencia: 
+// 1) Cuando la radio se enciende o el boton reset se apreta [asumo que
+// la radio puede estar OFF] -> apretar reset pone FRECUENCIA[M]. 
+// 2) Apenas se eciende -> la frecuencia es 180 FRECUENCIA = FRECUENCIA[M]
+// Si se vuelve a apretar scan, contin´ua la b´usqueda en forma descendente
+// OJO orden de las funciones -> si la necesita, debe estar arriba
+
+//const M = 180
+//range P = 88..180
+
+//SWITCH = OFF, 
+//OFF = (on -> ON), 
+//ON = (off -> OFF).
+
+//SCAN = FRECUENCIA[M],
+//FRECUENCIA[j:P] = ( estacion -> STOP
+//				  | when (j==88) scan -> STOP
+//				  | when (j>88) scan -> FRECUENCIA[j-1]).
+
+//RESET = (reset -> FRECUENCIA[M]).
+
+// Notas: 
+// Pensarlo como que si está en ON está en frecuencia 180 o ON[180] -> usamos ON y NO otro proceso FRECUENCIA[180]. Si está en ON arranca en 180. 
+// Cuando la radio se enciende o el boton reset se apreta [asumo que NO la radio puede estar OFF] -> apretar reset pone FRECUENCIA[M].
+
+// Scan 
+// La forma de guardar la última scan found a la que llegó es volviendo a ON[i] -> 
+// por ende si quiero hacer scan de nuevo y seguir bajando, lo hago desde la última estación a la que llegué, no desde cero. 
+// "Se frena cuando encuentra una estacion" es estar en ON en esa estación o "se frena" cuando llega a la banda más baja -> lo mando a ON[88]. 
+
+const M = 108
+range P = 88..108
+
+RADIO = OFF, 
+OFF = (on -> ON[M]),
+ON[i:P] = ( off -> OFF
+		  | reset -> ON[M]
+		  | scan -> SCAN[i]),
+
+SCAN[j:P] = ( when(j>88) found -> ON[j]
+		    | when(j>88) not_found -> SCAN[j-1]
+		    | when(j==88) not_found -> ON[j]).
+		    

@@ -1,0 +1,41 @@
+// Ejercicio 11
+
+// Pizarron: 
+//CINTA[i:0..N] = ( when (i>0) get -> CINTA[i-1]
+//				  | when (i<N) put -> CINTA[i+1]).
+
+
+// Primera impresión: 
+//CINTA (N=10) = (a -> CINTA[1]), 
+//CINTA[i:0..N] = (extraer -> PRENSADO
+//				| a -> CINTA[i+1]),
+//PRENSADO = (prensar -> SALIDA).
+
+// El get se hace primero ? 
+
+//const N = 10
+
+//CINTA = (a -> CINTA[1]),
+//CINTA[i:0..N] = ( when (i>0) get -> CINTA[i-1]
+//				| when (i<N) put -> CINTA[i+1]).
+
+// Usar lock para prensar
+
+//BRAZO_PRENSADO = ( get -> PRENSA),
+//PRENSA = ( prensar -> BRAZO_SALIDA),
+//BRAZO_SALIDA = (out -> BRAZO_PRENSADO). 
+
+const N = 2
+
+CINTA = CINTA[0],
+CINTA[i:0..N] = ( when (i>0) get -> CINTA[i-1]
+				| when (i<N) put -> CINTA[i+1]).
+
+BRAZO_PRENSADO = ( get -> prensar -> BRAZO_PRENSADO ).
+
+PRENSA = ( prensar -> out -> PRENSA ).
+
+BRAZO_SALIDA = ( out -> BRAZO_SALIDA ). 
+
+||CELULA = ( CINTA || BRAZO_PRENSADO || PRENSA || BRAZO_SALIDA ).
+

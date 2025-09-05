@@ -1,0 +1,28 @@
+// Ejercicio 10
+
+// 1) habilitar_entrada -> abrir gate EAST y WEAST
+// 2) Mientras i<N -> permito in al museo 
+//    Mientras i>0 -> permito out del museo
+// 3) habilitar_claursura -> i) Cierro gate east
+// 						    ii) Dejo salir a TODOS (permite salida del museo) -> Cierro gate weast
+
+const N = 3
+
+DIRECTOR = (habilitar_entrada -> habilitar_salida -> DIRECTOR).
+
+EAST = (abrir -> EAST_ABIERTO),
+EAST_ABIERTO = ( in -> EAST_ABIERTO
+			   | cerrar_in -> EAST).
+
+WEAST = (abrir -> WEAST_ABIERTO),
+WEAST_ABIERTO = ( out -> WEAST_ABIERTO
+			   | cerrar_out -> WEAST).	
+
+CONTROL = (habilitar_entrada -> abrir -> ABIERTO[0]), 
+ABIERTO[i:0..N] = ( when (i<N) in -> ABIERTO[i+1]
+				  | when (i>0) out -> ABIERTO[i-1]
+				  | habilitar_clausura -> cerrar_in -> CERRADO[i]), 
+CERRADO[i:0..N] = ( when (i>0) out -> CERRADO[i-1]
+				  | when (i==0) cerrar_out -> CONTROL).
+
+||MUSEO = ( DIRECTOR || EAST || WEAST || CONTROL ).

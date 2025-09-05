@@ -1,0 +1,32 @@
+// Ejercicio 7
+
+// Usar == y , antes de ).
+
+//const N = 15
+//MAQUINA = ( cinco -> FALTA[N-5]
+//		  | diez -> FALTA[N-10]
+//	      | veinte -> VUELTO[5]),
+
+//FALTA[0] = (bebida -> MAQUINA),
+//FALTA[i:5..10] = ( cinco -> (when (i-5>0) falta -> FALTA[i-5]
+//						   | when (i-5<=0) vuelto -> VUELTO[-(i-5)])
+//				 | diez -> (when (i-10>0) falta -> FALTA[i-10]
+//						   | when (i-10<=0) vuelto -> VUELTO[-(i-10)])
+//				 | veinte ->  (when (i-20>0) falta -> FALTA[i-20]
+//						   | when (i-20<=0) vuelto -> VUELTO[-(i-20)])), 
+
+//VUELTO[i:0..20] = ( when (i==0) bebida -> MAQUINA
+//				  | when (i==5) cinco -> bebida -> MAQUINA
+//				  | when (i==10) diez -> bebida -> MAQUINA).
+
+// El range va de 0..30 porque el rango más alto que puede haber es 10 + 20
+
+range T = 0..30
+
+MAQUINA = MAQUINA[0],
+MAQUINA[i:T] = ( when (i<15) moneda -> ( [5] -> MAQUINA[i+5]
+				  					   | [10] -> MAQUINA[i+10]
+									   | [20] -> MAQUINA[i+20])
+			   | when (i==15) bebida -> MAQUINA[0]
+			   | when (i>15) vuelto[i-15] -> bebida -> MAQUINA[0]).
+			   
