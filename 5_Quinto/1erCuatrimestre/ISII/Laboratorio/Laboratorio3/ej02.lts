@@ -1,0 +1,11 @@
+FORK = (get -> put -> FORK).
+
+PHIL = ( sitdown -> right.get -> left.get -> eat -> left.put -> right.put -> arise -> PHIL ).
+
+BUTLER(N = 5) = BUTLER[0],
+BUTLER[0] = ( phil[0..N-1].sitdown -> BUTLER[1]),
+BUTLER[i:1..N-2] = ( phil[0..N-1].sitdown -> BUTLER[i + 1]
+				   | phil[0..N-1].arise -> BUTLER[i - 1]),
+BUTLER[N-1] = (phil[0..N-1].arise -> BUTLER[N - 2]).
+
+||DINERS(N = 5) = ( BUTLER(N) || forall [i:0..N-1] ( phil[i]:PHIL || {phil[i].left, phil[((i-1)+N)%N].right}::FORK )).

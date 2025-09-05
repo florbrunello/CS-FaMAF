@@ -1,0 +1,39 @@
+const True = 1 
+const False = 0
+range Bool = False..True
+
+set BoolActions = {setTrue,setFalse,[False],[True]}
+
+BOOLVAR = VAL[False],
+VAL[v:Bool] = ( setTrue -> VAL[True]
+			  | setFalse -> VAL[False]
+			  | [v] -> VAL[v] ).
+
+||FLAGS = (flag1:BOOLVAR || flag2:BOOLVAR). 
+
+VECINO1 = ( flag1.setTrue -> flag2.[i:Bool] -> ( when (i==True) flag1.setFalse -> VECINO1
+										  	   | when (i==False) enter1 -> exit1 -> flag1.setFalse -> VECINO1 )).
+
+VECINO2 = ( flag2.setTrue -> flag1.[i:Bool] -> ( when (i==True) flag2.setFalse -> VECINO2
+											   | when (i==False) enter2 -> exit2 -> flag2.setFalse -> VECINO2 )).
+
+||CAMPO = ( n1:VECINO1 || n2:VECINO2 || FLAGS )
+		  /{ n1.flag1.setTrue / flag1.setTrue, 
+			 n1.flag1.setFalse / flag1.setFalse,
+			 n1.flag2.[i:Bool] / flag2.[i], 
+			 n2.flag2.setTrue / flag2.setTrue, 
+			 n2.flag2.setFalse / flag2.setFalse,
+			 n2.flag1.[i:Bool] / flag1.[i] }.
+
+property MUTEX = M[0], 
+M[i:0..1] = ( when (i==0) n1.enter -> M[1]
+			| when (i==0) n2.enter -> M[1] 
+			| when (i==1) n1.exit -> M[0] 
+			| when (i==1) n2.exit -> M[0] ).
+
+||CHECK = (CAMPO || MUTEX). 
+
+progress V1 = {n1.enter1}
+progress V2 = {n2.enter2}
+
+||CHECK_2 = (CHECK) >> {n1.flag2.[False], n2.flag1.[False]}.

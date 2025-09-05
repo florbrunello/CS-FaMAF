@@ -1,0 +1,11 @@
+const M = 10
+
+/*
+*ASENSOR = ASENSOR[0],
+*ASENSOR[i:0..M] = ( enter -> ASENSOR[i+1]
+*	              | when (i>0) exit -> ASENSOR[i-1]).
+*/
+
+property SAFE = SAFE[0],
+SAFE[i:0..M] = ( when (i<M) enter -> SAFE[i+1]
+			   | when (i>0) exit  -> SAFE[i-1] ).
