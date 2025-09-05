@@ -1,0 +1,25 @@
+set M = {replyA,replyB}
+set S = {[M],[M][M]}
+
+PORT = (send[x:M]->PORT[x]),
+PORT[v:M] = (send[x:M]->PORT[x][v]
+			|receive[v]->PORT),
+PORT[s:S][v:M] = (send[x:M]->PORT[x][s][v]
+				 |receive[v]->PORT[s]).
+
+||ENTRY = PORT/{call/send, accept/receive}.
+
+CLIENTE(CH='reply) = ( entry.call[CH]-> ( aceptada[CH] -> [CH] -> CLIENTE
+										| rechazada[CH] -> CLIENTE )).
+
+EMPRESA = ( entry.accept[ch:M]-> ( editorial.get[ch] -> ( editorial.no_disponible -> rechazada[ch] -> EMPRESA
+													    | editorial.disponible -> tarjeta.pay[ch] -> ( tarjeta.t_rechazada -> rechazada[ch] -> EMPRESA
+																						             | tarjeta.t_aceptada -> aceptada[ch] -> [ch]-> EMPRESA )))).
+
+EDITORIAL = ( get[ch:M] -> ( disponible -> EDITORIAL 
+						   | no_disponible -> EDITORIAL )).
+
+TARJETA = ( pay[ch:M] -> ( t_aceptada -> TARJETA 
+					     | t_rechazada -> TARJETA )). 
+
+||EntryDemo = (CLIENTE('replyA) || CLIENTE('replyB)|| entry:ENTRY || EMPRESA || editorial:EDITORIAL || tarjeta:TARJETA).

@@ -1,0 +1,12 @@
+const M = 5
+
+OLLA = OLLA[0],
+OLLA[0] = (llenar -> OLLA[M]),
+OLLA[i:1..M] = (servir -> OLLA[i-1]).
+
+COCINERO = (llenar -> COCINERO).
+
+SALVAJE = (servir -> SALVAJE).
+
+||TRIBU = ( OLLA || COCINERO || s[1..M]:SALVAJE)
+		  /{servir/s[1..M].servir}.

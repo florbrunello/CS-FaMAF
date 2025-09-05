@@ -1,0 +1,58 @@
+// Notas
+
+// 1. acquire -> escribir -> release
+// 2. Poner en paralelo [1..N]:LECTOR y [1..M]:ESCRITOR (NO LECTOR || ESCRITOR). r[1..N]:LECTOR 
+// 3. Renombrar sino EXPLOTA
+// 4. Renombrar de ms NO sirve: se torna todo a UNO solo: 
+//		   leer /  [1..N].lector.leer, 
+//		   escribir /  [1..M].escritor.escribir } .
+// LECTOR y ESCRITOR NO manejan 
+// LECTOR = LECTOR[0]
+// LECTOR[i: ...
+
+//5. Sin renombres puedo hacer acquire Y r[1] acquire
+
+//Base de datos -> para leer puedo leer todos a la vez. Si viene un escritor esperr que los lectores terminen de leer, escribo solo.
+
+// Hacer acquire diferenciados para NO dejar entrar a la base de datos al escritor
+// VAR[i:0..K] = ( when (i<K) acquire -> ( when (i==0) escribir -> VAR[i+1]
+// 									  | when (0<i<K) leer -> VAR[i+1] ) 
+
+// READER = ( acquiere -> leer -> release -> LECTOR). -> ESCRIBIRLO DISTINTO
+
+// Distinguir contar escritores y lectores
+
+// La base de datos NO se modela -> leer / escribir no aparecen en CTRL 
+
+const K = 2
+const N = 3
+const M = 3
+
+// Cuento cuantos acceden a la variable...
+
+CTRL = CTRL[0][0],
+CTRL[i:0..N][j:0..M] = ( when (i<K & j==0) r.acquire -> CTRL[i+1][j]
+  					  | when (i>0 & j==0) r.release -> CTRL[i-1][j]
+			          | when (i==0 & j==0) w.acquire -> CTRL[i][j+1]
+  			          | when (i==0 & j>0) w.release -> CTRL[i][j-1] ).
+
+// Cuento cuantos lectores pueden leer 
+
+READER = ( acquire -> READING ), 
+READING = ( read -> READING 
+		  | release -> READER). 
+
+// Cuento cuantos escritores pueden leer o escribir
+
+WRITER = ( acquire -> WRITING ),
+WRITING = ( read -> WRITING 
+	      | write -> WRITING
+		  | release -> WRITER ). 
+
+||BIB = ( CTRL || r[1..N]:READER || w[1..M]:WRITER )
+		/ { r[1..N].acquire/ r.acquire, 
+			r[1..N].release/ r.release, 
+			w[1..M].acquire/ w.acquire, 
+			w[1..M].release/ w.release } .
+
+	

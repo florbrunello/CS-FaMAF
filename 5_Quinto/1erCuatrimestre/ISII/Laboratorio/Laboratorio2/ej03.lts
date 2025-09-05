@@ -1,0 +1,26 @@
+// Ejercicio 3
+
+const N = 2 // Seats
+const M = 3 // Terminals
+
+// Modelo una terminal -> 
+// a) Mostrar estado 
+// b) Intentar reservar 
+
+// /{ t[1..M].s[j:1..N].consultar / s[j].consultar, OJO usar la variable j porque sino una vez que se reserva 
+// un asiento se reservan TODOS 
+
+// Modelo un asiento -> los pongo en paralelo
+
+ASIENTO = DESOCUPADO, 
+DESOCUPADO = ( consultar -> reservar -> OCUPADO),
+OCUPADO = ( consultar -> ocupado -> OCUPADO ). 
+
+TERMINAL = ( mostrar_estado -> TERMINAL 
+		   | [i:1..N] -> s.[i].consultar -> ( s[i].reservar -> TERMINAL
+											| s[i].ocupado -> TERMINAL)).
+
+||SYSTEM = (  t[1..M]:TERMINAL || s[1..N]:ASIENTO )
+           /{ t[1..M].s[j:1..N].consultar / s[j].consultar,
+			  t[1..M].s[j:1..N].reservar / s[j].reservar, 
+			  t[1..M].s[j:1..N].ocupado / s[j].ocupado }.

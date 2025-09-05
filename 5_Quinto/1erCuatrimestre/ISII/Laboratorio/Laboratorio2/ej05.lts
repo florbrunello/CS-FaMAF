@@ -1,0 +1,21 @@
+// Disene y modele en FSP un protocolo de comunicacion que permita a un proceso productor y un proceso consumidor comunicarse 
+// a traves de un canal asincronico con un numero maximo de mensajes, de manera que el productor se bloquee cuando el buffer del canal esta lleno.
+
+range M = 0..9 // Cantidad de mensajes
+
+ONEBUFF = ( put[x:M] -> get[x] -> ONEBUFF).
+
+||BUFFER(N=3) = ( [1..N]:ONEBUFF )
+				 /{ put/[1].put,
+					[i:2..N].put/[i-1].get,
+					get/[N].get
+				 }@{put,get}.
+
+PRODUCTOR = PRODUCTOR[0],
+PRODUCTOR[e:M] = ( buffer.put[e] -> PRODUCTOR[(e+1)%10]).
+
+CONSUMIDOR = ( buffer.get[x:M] -> CONSUMIDOR ). 
+
+||CANAL = ( PRODUCTOR || CONSUMIDOR || buffer:BUFFER )
+ 			/{ buffer.put/buffer.put[M],
+			   buffer.get/buffer.get[M] }.
